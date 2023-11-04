@@ -1,0 +1,377 @@
+import { Component } from '@angular/core';
+import { HomeComponent } from './home/home.component';
+import { RouterLink, RouterOutlet } from '@angular/router';
+@Component({
+ selector: 'app-root',
+ standalone: true,
+ imports: [
+ HomeComponent,
+ RouterLink,
+ RouterOutlet,
+ ],
+ template: `
+ <main>
+ <a [routerLink]="['/']">
+ <header class="brand-name">
+ <img class="brand-logo" src="/assets/logo.svg" alt="logo" ariahidden="true">
+ </header>
+ </a>
+ <section class="content">
+ <router-outlet></router-outlet>
+ </section>
+ </main>
+ `,
+ styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+ title = 'homes';
+} 
+App.component.css 
+
+:host {
+ --content-padding: 10px;
+}
+header {
+ display: block;
+ height: 60px;
+ padding: var(--content-padding);
+ box-shadow: 0px 5px 25px var(--shadow-color);
+}
+.content {
+ padding: var(--content-padding);
+}
+Housing.service.ts
+import { Injectable } from '@angular/core';
+import { HousingLocation } from './housinglocation';
+@Injectable({
+ providedIn: 'root'
+})
+export class HousingService {
+ readonly baseUrl = 'https://angular.io/assets/images/tutorials/faa';
+ protected housingLocationList: HousingLocation[] = [
+ {
+ id: 0,
+ name: 'Acme Fresh Start Housing',
+ city: 'Chicago',
+ state: 'IL',
+ photo: `${this.baseUrl}/bernard-hermant-CLKGGwIBTaY-unsplash.jpg`,
+ availableUnits: 4,
+ wifi: true,
+ laundry: true
+ },
+ {
+ id: 1,
+ name: 'A113 Transitional Housing',
+ city: 'Santa Monica',
+ state: 'CA',
+ photo: `${this.baseUrl}/brandon-griggs-wR11KBaB86U-unsplash.jpg`,
+ availableUnits: 0,
+ wifi: false,
+ laundry: true
+ },
+ {
+ id: 2,
+ name: 'Warm Beds Housing Support',
+ city: 'Juneau',
+ state: 'AK',
+ photo: `${this.baseUrl}/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg`,
+ availableUnits: 1,
+ wifi: false,
+ laundry: false
+ },
+ {
+ id: 3,
+ name: 'Homesteady Housing',
+ city: 'Chicago',
+ state: 'IL',
+ photo: `${this.baseUrl}/ian-macdonald-W8z6aiwfi1E-unsplash.jpg`,
+ availableUnits: 1,
+ wifi: true,
+ laundry: false
+ },
+ {
+ id: 4,
+ name: 'Happy Homes Group',
+ city: 'Gary',
+ state: 'IN',
+ photo: `${this.baseUrl}/krzysztof-hepner-978RAXoXnH4-unsplash.jpg`,
+ availableUnits: 1,
+ wifi: true,
+ laundry: false
+ },
+ {
+ id: 5,
+ name: 'Hopeful Apartment Group',
+ city: 'Oakland',
+ state: 'CA',
+ photo: `${this.baseUrl}/r-architecture-JvQ0Q5IkeMM-unsplash.jpg`,
+ availableUnits: 2,
+ wifi: true,
+ laundry: true
+ },
+ {
+ id: 6,
+ name: 'Seriously Safe Towns',
+ city: 'Oakland',
+ state: 'CA',
+ photo: `${this.baseUrl}/phil-hearing-IYfp2Ixe9nM-unsplash.jpg`,
+ availableUnits: 5,
+ wifi: true,
+ laundry: true
+ },
+ {
+ id: 7,
+ name: 'Hopeful Housing Solutions',
+ city: 'Oakland',
+ state: 'CA',
+ photo: `${this.baseUrl}/r-architecture-GGupkreKwxA-unsplash.jpg`,
+ availableUnits: 2,
+ wifi: true,
+ laundry: true
+ },
+ {
+ id: 8,
+ name: 'Seriously Safe Towns',
+ city: 'Oakland',
+ state: 'CA',
+ photo: `${this.baseUrl}/saru-robert-9rP3mxf8qWI-unsplash.jpg`,
+ availableUnits: 10,
+ wifi: false,
+ laundry: false
+ },
+ {
+ id: 9,
+ name: 'Capital Safe Towns',
+ city: 'Portland',
+ state: 'OR',
+ photo: `${this.baseUrl}/webaliser-_TPTXZd9mOo-unsplash.jpg`,
+ availableUnits: 6,
+ wifi: true,
+ laundry: true
+ }
+ ];
+ getAllHousingLocations(): HousingLocation[] {
+ return this.housingLocationList;
+ }
+ getHousingLocationById(id: number): HousingLocation | undefined {
+ return this.housingLocationList.find(housingLocation => housingLocation.id ===
+id);
+ }
+ submitApplication(firstName: string, lastName: string, email: string) {
+ console.log(`Homes application received: firstName: ${firstName}, lastName: ${l
+astName}, email: ${email}.`);
+ }
+}
+
+
+ 
+Housinglocation.ts 
+export interface HousingLocation {
+ id: number;
+ name: string;
+ city: string;
+ state: string;
+ photo: string;
+ availableUnits: number;
+ wifi: boolean;
+ laundry: Boolean;
+}
+Routes.ts 
+
+
+import { Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { DetailsComponent } from './details/details.component';
+const routeConfig: Routes = [
+ {
+ path: '',
+ component: HomeComponent,
+ title: 'Home page'
+ },
+ {
+ path: 'details/:id',
+ component: DetailsComponent,
+ title: 'Home details'
+ }
+];
+export default routeConfig;
+Home.component.ts
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HousingLocationComponent } from '../housing-location/housinglocation.component';
+import { HousingLocation } from '../housinglocation';
+import { HousingService } from '../housing.service';
+@Component({
+ selector: 'app-home',
+ standalone: true,
+ imports: [
+ CommonModule,
+ HousingLocationComponent
+ ],
+ template: `
+ <section>
+ <form>
+ <input type="text" placeholder="Filter by city" #filter>
+ <button class="primary" type="button" (click)="filterResults(filter.value)"
+>Search</button>
+ </form>
+ </section>
+ <section class="results">
+ <app-housing-location
+ *ngFor="let housingLocation of filteredLocationList"
+ [housingLocation]="housingLocation">
+ </app-housing-location>
+ </section>
+ `,
+ styleUrls: ['./home.component.css'],
+})
+export class HomeComponent {
+ housingLocationList: HousingLocation[] = [];
+ housingService: HousingService = inject(HousingService);
+ filteredLocationList: HousingLocation[] = [];
+ constructor() {
+ this.housingLocationList = this.housingService.getAllHousingLocations();
+ this.filteredLocationList = this.housingLocationList;
+ }
+ filterResults(text: string) {
+ if (!text) {
+ this.filteredLocationList = this.housingLocationList;
+ }
+ this.filteredLocationList = this.housingLocationList.filter(
+ housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerC
+ase())
+ );
+ } 
+
+
+Home.component.css
+.results {
+ display: grid;
+ column-gap: 14px;
+ row-gap: 14px;
+ grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
+ margin-top: 50px;
+ justify-content: space-around;
+}
+input[type="text"] {
+ border: solid 1px var(--primary-color);
+ padding: 10px;
+ border-radius: 8px;
+ margin-right: 4px;
+ display: inline-block;
+ width: 30%;
+}
+button {
+ padding: 10px;
+ border: solid 1px var(--primary-color);
+ background: var(--primary-color);
+ color: white;
+ border-radius: 8px;
+}
+@media (min-width: 500px) and (max-width: 768px) {
+ .results {
+ grid-template-columns: repeat(2, 1fr);
+ }
+ input[type="text"] {
+ width: 70%;
+ }
+}
+@media (max-width: 499px) {
+ .results {
+ grid-template-columns: 1fr;
+ }
+}
+Housing-location.ts 
+
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HousingLocation } from '../housinglocation';
+import { RouterModule } from '@angular/router';
+@Component({
+ selector: 'app-housing-location',
+ standalone: true,
+ imports: [
+ CommonModule,
+ RouterModule
+ ],
+ template: `
+ <section class="listing">
+ <img class="listingphoto" [src]="housingLocation.photo" alt="Exterior photo of {{housingLocation.name}
+}">
+ <h2 class="listing-heading">{{ housingLocation.name }}</h2>
+ <p class="listinglocation">{{ housingLocation.city}}, {{housingLocation.state }}</p>
+ <a [routerLink]="['/details', housingLocation.id]">Learn More</a>
+ </section>
+ `,
+ styleUrls: ['./housing-location.component.css'],
+})
+export class HousingLocationComponent {
+ @Input() housingLocation!: HousingLocation;
+}
+ 
+Housing-location.css 
+
+.listing {
+ background: var(--accent-color);
+ border-radius: 30px;
+ padding-bottom: 30px;
+}
+.listing-heading {
+ color: var(--primary-color);
+ padding: 10px 20px 0 20px;
+}
+.listing-photo {
+ height: 250px;
+ width: 100%;
+ object-fit: cover;
+ border-radius: 30px 30px 0 0;
+}
+.listing-location {
+ padding: 10px 20px 20px 20px;
+}
+.listing-location::before {
+ content: url("/assets/location-pin.svg") / "";
+}
+section.listing a {
+ padding-left: 20px;
+ text-decoration: none;
+ color: var(--primary-color);
+}
+section.listing a::after {
+ content: "\203A";
+ margin-left: 5px;
+}
+
+Index.html
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <title>Homes</title>
+ <base href="/">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="icon" type="image/x-icon" href="favicon.ico">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,4
+00;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+ <app-root></app-root>
+</body>
+</html>
+Main.ts
+import { bootstrapApplication,provideProtractorTestingSupport } from '@angular/plat
+form-browser';
+import { AppComponent } from './app/app.component';
+import { provideRouter } from '@angular/router';
+import routeConfig from './app/routes';
+bootstrapApplication(AppComponent,
+ {
+ providers: [
+ provideProtractorTestingSupport(),
+ provideRouter(routeConfig)
+ ]
+ }
+
+).catch(err => console.error(err
