@@ -1,0 +1,120 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Deepthi Valasapalli</title> 
+    <style>         body { 
+            background-color: #f2f2f2; /* Nice background color */             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Different font */ 
+            color: #444;             margin: 20px; 
+        } 
+        h1 { 
+            text-align: center; 
+            color: #007BFF; /* Different color for heading */             font-family: Arial, sans-serif; /* Resetting the font for h1 */ 
+        } 
+        h2 { 
+            margin-top: 30px;             color: #0056b3; /* Different color for h2 */ 
+        }         p { 
+            margin: 10px 0;             line-height: 1.5; 
+        } 
+        table { 
+            width: 100%;             margin-top: 20px;             border-collapse: collapse; 
+        } 
+        table td {             padding: 10px;             border: 1px solid #ccc; /* Adding borders to the table cells */ 
+        } 
+        table tr:nth-child(even) { 
+            background-color: #e0e0e0; /* Alternating row background color */ 
+        }         li { 
+            margin-bottom: 5px; 
+        } 
+    </style> 
+</head> 
+<body> 
+    <h1>Deepthi Valasapalli</h1> 
+   <img src="C:\Users\deept\OneDrive\Desktop\deeps.jpg" alt="Deepthi Valasapalli  width="300" height="300"> 
+    <table> 
+        <tr> 
+            <td align="left">13/121 School Road</td> 
+            <td align="right">Residence</td> 
+        </tr> 
+        <tr> 
+            <td align="left">Vijayawada 521456</td> 
+            <td align="right">Message 8328286038</td> 
+        </tr> 
+        <tr> 
+            <td align="right" colspan="2">Email: deepti@gmail.com</td> 
+        </tr> 
+    </table> 
+    <h2>Objective</h2> 
+    <table> 
+        <tr> 
+            <td>&nbsp;</td> 
+            <td>A UG student</td> 
+        </tr> 
+    </table> 
+    <h2>PROFILE SUMMARY</h2> 
+    <p>Motivated internship student working towards an Internet of Things degree, also parallely doing data analytics and science. Hardworking and resourceful individual commended for first-rate collaboration, organizational, and time management abilities. Skilled in working under pressure and adapting to new situations and challenges to best enhance the organizational brand.</p> 
+    <h3>SKILLS</h3> 
+    <table> 
+        <tr> 
+            <td>&nbsp;</td> 
+            <td> 
+                <ul> 
+                    <li>Python</li> 
+                    <li>HTML, CSS</li> 
+                    <li>Tableau</li> 
+                    <li>Java</li> 
+                    <li>SQL</li> 
+                </ul> 
+            </td> 
+        </tr> 
+    </table> 
+    <h1>EDUCATION</h1> 
+    <table> 
+        <tr> 
+            <td>&nbsp;</td> 
+            <td><h2>Third year of engineering</h2></td> 
+        </tr> 
+        <tr> 
+            <td>&nbsp;</td> 
+            <td><h3>Shiv Nadar University, Kalavakkam, Chennai, India</h3></td> 
+        </tr> 
+        <tr> 
+            <td>&nbsp;</td> 
+            <td><h2>Intermediate</h2></td> 
+        </tr> 
+        <tr> 
+            <td>&nbsp;</td> 
+            <td><h3>Narayana Junior College, Vijayawada, Andhra Pradesh, India</h3></td> 
+        </tr> 
+        <tr> 
+            <td>&nbsp;</td> 
+            <td><h2>10th Class</h2></td> 
+        </tr> 
+        <tr> 
+            <td>&nbsp;</td> 
+            <td><h3>Narayana Olympiad School, Vijayawada, Andhra Pradesh, India</h3></td> 
+        </tr> 
+    </table> 
+    <h3>CERTIFICATES</h3> 
+    <table> 
+        <tr> 
+            <td>&nbsp;</td> 
+            <td> 
+                <ul> 
+                    <li>Introduction to Data Analytics | IBM</li> 
+                    <li>Full Stack Development | META</li> 
+                    <li>Introduction to Cloud Computing | IBM</li> 
+                    <li>Intern on Data Analytics | Forage</li> 
+                    <li>Introduction to Python | Infosys Springboard</li> 
+                </ul> 
+            </td> 
+        </tr> 
+    </table> 
+    <h1>ACTIVITIES</h1> 
+    <table> 
+        <tr> 
+            <td>&nbsp;</td> 
+            <td>NSS Volunteer, Club Representative</td> 
+        </tr> 
+    </table> 
+</body> 
+</html> 
